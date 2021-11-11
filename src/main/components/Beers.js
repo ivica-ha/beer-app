@@ -11,14 +11,12 @@ const Beers = ({ filteredBeers }) => {
   return (
     <div className="beers">
       {filteredBeers.map((beer) => {
-        const name = beer.name;
-        const image = beer.image_url;
-        const details = beer.details;
+        const {name, details, image_url, abv} = beer
         return (
           <div key={beer.id} className="box">
-            <img src={image} className="box-img" />
-
-            <span>{name}</span>
+            <img src={image_url} alt={name} className="box-img" />
+            <div>{name}</div>
+            <div>{abv}</div>
           </div>
         );
       })}

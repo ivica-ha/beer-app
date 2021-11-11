@@ -35,26 +35,53 @@ const Filters = ({
     filterData();
   };
 
+  // const handleRange = (e) => {
+  //   const firstPos = e[0];
+  //   const secondPos = e[1];
+
+  //   const filterBeers = beers.filter((beer) => {
+  //     if (firstPos < beer.abv && beer.abv < secondPos) {
+  //       return 1;
+  //     } else {
+  //       return 0;
+  //     }
+  //   });
+  //   setRangeBeers(filterBeers);
+  //   filterData();
+  // };
+
+  const sort = (e) => {
+    let sortedBeers;
+    if(e.target.value === 'asc') {
+      // ascending
+      sortedBeers = rangeBeers.sort((a, b) => a.abv - b.abv)
+    } else {
+      //descending
+      sortedBeers = rangeBeers.sort((a, b) => b.abv - a.abv)
+    }
+    setRangeBeers(sortedBeers)
+    filterData();
+  }
+
   const handleRange = (e) => {
     const firstPos = e[0];
     const secondPos = e[1];
-
-    const filterBeers = beers.filter((beer) => {
-      if (firstPos < beer.abv && beer.abv < secondPos) {
-        return 1;
-      } else {
-        return 0;
-      }
-    });
-    setRangeBeers(filterBeers);
+    const newBeers = beers.filter(beer => beer.abv > firstPos && beer.abv < secondPos )
+    setRangeBeers(newBeers)
     filterData();
-  };
+  }
 
   return (
     <div className="filters">
       <div>
         <label>Search:</label>
         <input type="text" onChange={(e) => handleSearch(e)} />
+      </div>
+      <div>
+        <select onChange={sort}>
+          <option value="asc">najmanje do najvece</option>
+          <option value="desc">najvece prema najmanje</option>
+        </select>
       </div>
       <div>
         <label>Alcohol content(%):</label>
